@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* optional polish */
+html,
+body {
+  height: 100%;
+}

@@ -1,0 +1,101 @@
+{
+	"info": {
+		"_postman_id": "c1ff7b3e-307d-4862-9f39-fd87cab87aa3",
+		"name": "ECOMMERCE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "50961559",
+		"_collection_link": "https://www.postman.com/viditshandilya69-7219018/e-commerce-admin-dashboard-apis/collection/50961559-c1ff7b3e-307d-4862-9f39-fd87cab87aa3?action=share&source=collection_link&creator=50961559"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/auth/login\n",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@store.com\",\r\n  \"password\": \"admin123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/auth/login\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"auth",
+						"login\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/dashboard/stats\n",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/dashboard/stats\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"dashboard",
+						"stats\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/dashboard/revenue\n",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/dashboard/revenue\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"dashboard",
+						"revenue\n"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/products\n",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/products\n",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"products\n"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
