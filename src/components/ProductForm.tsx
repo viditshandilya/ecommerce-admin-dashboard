@@ -17,7 +17,9 @@ export default function ProductForm() {
   const { errors } = formState;
 
   const addProduct = useDataStore((s) => s.addProduct);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
+
+  // 🔴 IMPORTANT CHANGE: string ONLY (no null)
+  const [imagePreview, setImagePreview] = useState<string>("");
 
   const onSubmit = (data: ProductFormData) => {
     addProduct({
@@ -26,11 +28,11 @@ export default function ProductForm() {
       price: Number(data.price),
       stock: Number(data.stock),
       category: data.category,
-      image: imagePreview, // store image
+      image: imagePreview || "/product.png", // ✅ ALWAYS string
     });
 
     reset();
-    setImagePreview(null);
+    setImagePreview("");
   };
 
   return (
@@ -56,16 +58,11 @@ export default function ProductForm() {
                 No Image
               </div>
             )}
-            <input
-  type="file"
-  accept="image/*"
-  className="w-full text-sm"
-/>
-
 
             <input
               type="file"
               accept="image/*"
+              className="text-sm"
               onChange={(e) => {
                 const file = e.target.files?.[0];
                 if (!file) return;
@@ -75,7 +72,6 @@ export default function ProductForm() {
                   setImagePreview(reader.result as string);
                 reader.readAsDataURL(file);
               }}
-              className="text-sm"
             />
           </div>
         </div>
@@ -85,7 +81,7 @@ export default function ProductForm() {
           <label className="text-sm font-medium">Product Name</label>
           <input
             {...register("name", { required: "Product name is required" })}
-            className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+            className="w-full mt-1 px-4 py-2 border rounded-lg"
             placeholder="Wireless Headphones Pro"
           />
           {errors.name && (
@@ -153,16 +149,16 @@ export default function ProductForm() {
             type="button"
             onClick={() => {
               reset();
-              setImagePreview(null);
+              setImagePreview("");
             }}
-            className="px-4 py-2 text-sm rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-700"
+            className="px-4 py-2 text-sm rounded-lg border"
           >
             Cancel
           </button>
 
           <button
             type="submit"
-            className="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700"
+            className="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white"
           >
             Save Product
           </button>

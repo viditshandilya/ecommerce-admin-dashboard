@@ -1,20 +1,9 @@
-// import { create } from "zustand";
-
-// export const useAuthStore = create((set) => ({
-//   token: null,
-//   login: (email: string, password: string) => {
-//     if (email === "admin@store.com" && password === "admin123") {
-//       set({ token: "secure-token" });
-//       return true;
-//     }
-//     return false;
-//   },
-//   logout: () => set({ token: null }),
-// }));
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-type User = {
+/* ---------- TYPES ---------- */
+export type User = {
+  name: string;
   email: string;
   avatar?: string;
 };
@@ -31,6 +20,7 @@ type AuthState = {
   updateAvatar: (avatar: string) => void;
 };
 
+/* ---------- STORE ---------- */
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
@@ -39,27 +29,30 @@ export const useAuthStore = create<AuthState>()(
       password: null,
       token: null,
 
-      // 🔑 FIRST TIME → SETUP
-      // 🔐 NEXT TIMES → LOGIN
+      // First-time setup OR normal login
       loginOrSetup: (email, password) => {
         const { isInitialized, password: storedPass } = get();
 
-        // FIRST TIME SETUP
         if (!isInitialized) {
           set({
             isInitialized: true,
             password,
             token: "admin-token",
-            user: { email },
+            user: {
+              name: "Admin",
+              email,
+            },
           });
           return true;
         }
 
-        // NORMAL LOGIN
         if (password === storedPass) {
           set({
             token: "admin-token",
-            user: { email },
+            user: {
+              name: "Admin",
+              email,
+            },
           });
           return true;
         }
@@ -69,7 +62,6 @@ export const useAuthStore = create<AuthState>()(
 
       logout: () => set({ token: null }),
 
-      // 🔁 CHANGE PASSWORD VIA SETTINGS
       changePassword: (current, next) => {
         if (current !== get().password) return false;
         set({ password: next, token: null });
@@ -77,8 +69,10 @@ export const useAuthStore = create<AuthState>()(
       },
 
       updateAvatar: (avatar) =>
-        set((s) =>
-          s.user ? { user: { ...s.user, avatar } } : {}
+        set((state) =>
+          state.user
+            ? { user: { ...state.user, avatar } }
+            : state
         ),
     }),
     {
